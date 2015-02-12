@@ -46,6 +46,56 @@
   
   Class.prototype.make = function make(fn, parent){
     parent = parent || Object;
+    var insFn = new fn();
+    // everything will come from Class.prototype
+    if (parent.name === 'Object') {
+      var x = (function(Class, fn){
+        // var child = function(){
+        //   Object.call(this);
+        //   return this;
+        // };
+        // child.prototype = Object.create(Object.prototype);
+        // child.prototype.constructor = child;
+        // child.prototype.doSomething = function doSomething(){};
+        // console.log(new child());
+        
+        // Create a class
+        // console.log(fn, Class);
+        // var ClassX = new Class();
+        // var x = ClassX.make(fn, Class);
+        // fn = x;
+        // console.log(fn, Class);
+        // 
+        var ClassY = new Class();
+        var ClassX = ClassY.make(fn, Class);
+        parent = ClassX;
+
+        var child = function(){
+          parent.call(this);
+          return this;
+        };
+        child.prototype = Object.create(Object.prototype);
+        child.prototype.constructor = child;
+
+        // add useful methods
+        child.prototype.getAllKeys = function getAllKeys(){
+          var keys = [];
+          for (var key in this) {
+              keys.push(key);
+          }
+          return keys;
+        };
+        return child;
+      })(Class, fn);
+        var ClassY = new Class();
+        var ClassX = ClassY.make(x, Class);
+        
+      x.prototype = Object.create(ClassX.prototype);
+      x.prototype.constructor = fn;
+      return x;
+    };
+
+
     // since the user isn't using <parent-fn>.call(this);
     // to inherit the parent properties we'll have to add
     // them to the prototype manually
@@ -55,13 +105,22 @@
     };
     child.prototype = Object.create(parent.prototype);
     child.prototype.constructor = fn;
-    var insFn = new fn();
-    var obj = {};
+    
     for (var x in insFn) {
         child.prototype[x] = insFn[x];
     }
+    // Add the current properties
+    // var keys = Object.keys(insFn);
+    // var currentKey;
+    // for (var i = 0, len = keys.length; i < len; i++) {
+    //   currentKey = keys[i];
+    //   child[currentKey] = insFn[currentKey];
+    //   console.log('currentKey: ', currentKey);
+    // };
     // fn.prototype = Object.create(parent.prototype);
     // fn.prototype.constructor = fn;
+    
+
     return child;
   };
 
@@ -77,9 +136,13 @@
   // Create a class
   var AnimalClass = window.AnimalClass = Class.make(function AnimalClass(){
     this.animalThing = 2;
+    this.animalFunctionToBeInherited = function(){
+      console.log('I am added to the prototype!');
+    };
     return this;
   });
   
+  // Manually adding things to the AnimalClass prototype
   AnimalClass.prototype.numberOfEyes = 2;
 
   // Create a class
@@ -89,6 +152,23 @@
   }, AnimalClass);
 
   // Create the instances
-  console.log(new AnimalClass(), Object.create(AnimalClass.prototype));
+  var dog1 = new DogClass();
+  var dog2 = Object.create(DogClass.prototype);
+  //console.log(new AnimalClass(), Object.create(AnimalClass.prototype));
+  console.log(dog1, dog2);
+
+  // Add things to the instance
+  dog1.addedDogThing = true;
+  dog1.animalThing = -5;
+
+  dog2.addedDogThing = 'stuff goes here';
+  dog2.animalThing = -69;
+
+  console.log(dog1, dog2);
   console.log(new DogClass(), Object.create(DogClass.prototype));
+  // console.log(dog.animalNonProtoFunction());
+  // AnimalClass.prototype.isPrototypeOf(dog);
+  // Object.getPrototypeOf(dog)
+  // Object.keys(dog)
+
 })(window);
