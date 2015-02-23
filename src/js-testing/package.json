@@ -1,0 +1,22 @@
+{
+  "name": "js-testing",
+  "version": "0.1.0",
+  "description": "testing with mocha",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/guillermoroblesjr/boilerplates.git"
+  },
+  "keywords": [
+    "mocha"
+  ],
+  "author": "Guillermo Robles Jr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/guillermoroblesjr/boilerplates/issues"
+  },
+  "homepage": "https://github.com/guillermoroblesjr/boilerplates"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "js-testing",
+  "version": "0.1.0",
+  "homepage": "https://github.com/guillermoroblesjr/boilerplates",
+  "authors": [
+    "Guillermo Robles",
+    "Jr. <will.robles@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
