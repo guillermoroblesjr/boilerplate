@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
   // Initialize config.
   grunt.initConfig({
-    pkg: require('./package.json'),
+    pkg: require('./package.json')
   });
 
   // Load per-task config from separate files.
@@ -15,8 +15,8 @@ module.exports = function(grunt) {
       'jshint', 
       'clean', 
       'copy', 
+      'coverage',
       'connect:dev',
-      'blanket_mocha',
       'watch'
     ]);
 
