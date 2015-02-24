@@ -15,7 +15,8 @@ module.exports = function(grunt) {
       'jshint', 
       'clean', 
       'copy', 
-      'connect:dev', 
+      'connect:dev',
+      'blanket_mocha',
       'watch'
     ]);
 

@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   grunt.config('connect', {
     options: {
       hostname: 'localhost',
-      base: 'tmp',
+      base: 'tmp/app',
     },
     dev: {},
     prod: {
