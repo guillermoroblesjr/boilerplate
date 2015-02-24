@@ -3,9 +3,22 @@ module.exports = function(grunt) {
   grunt.config('connect', {
     options: {
       hostname: 'localhost',
-      base: 'tmp/app',
+      livereload: true,
     },
-    dev: {},
+    dev: {
+      options: {
+        base: 'tmp/app',
+        port: 8000,
+        open: true
+      }
+    },
+    tests: {
+      options: {
+        base: ['.', './tests'],
+        port: 8001,
+        open: true
+      }
+    },
     prod: {
       options: {
         keepalive: true,

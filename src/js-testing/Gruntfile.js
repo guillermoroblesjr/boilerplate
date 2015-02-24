@@ -15,8 +15,9 @@ module.exports = function(grunt) {
       'jshint', 
       'clean', 
       'copy', 
-      'coverage',
       'connect:dev',
+      'connect:tests',
+      'coverage',
       'watch'
     ]);
 
